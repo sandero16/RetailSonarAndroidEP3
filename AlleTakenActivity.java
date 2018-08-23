@@ -67,8 +67,8 @@ public class AlleTakenActivity extends AppCompatActivity{
         mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
-
+                Intent i = new Intent(AlleTakenActivity.this, LoginActivity.class);
+                startActivity(i);
             }
         });
 

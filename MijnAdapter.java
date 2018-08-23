@@ -78,6 +78,7 @@ public class MijnAdapter extends RecyclerView.Adapter<MijnAdapter.ViewHolderFili
 
     @Override
     public int getItemCount() {
+        if(filiaalNamen==null) return 0;
         return filiaalNamen.length;
     }
 }

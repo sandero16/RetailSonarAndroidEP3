@@ -57,12 +57,28 @@ public class SettingsActivity extends AppCompatActivity{
 
         tv.setTypeface(tf);
 
+
         tv=(TextView)findViewById(R.id.Settings);
         tf= Typeface.createFromAsset(this.getAssets(),"fonts/Quicksand_Bold.otf");
 
         tv.setTypeface(tf);
 
-
+        Button mEmailSignInButton = (Button) findViewById(R.id.logout);
+        mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(SettingsActivity.this, LoginActivity.class);
+                startActivity(i);
+            }
+        });
+        Button Gotomaps = (Button) findViewById(R.id.mapsbutton);
+        Gotomaps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(SettingsActivity.this, keuzeMapsActivity.class);
+                startActivity(i);
+            }
+        });
 
         Intent data = getIntent();
         Bundle dataBundle = data.getExtras();
@@ -70,6 +86,8 @@ public class SettingsActivity extends AppCompatActivity{
             filiaalId = dataBundle.getInt("filiaalId");
             filiaalId = Character.getNumericValue(((GlobaleVariabelen) getApplication()).getIdLijst()[filiaalId].charAt(0));
         }
+        ((GlobaleVariabelen) getApplication()).setFiliaalid(filiaalId);
+        System.out.println(filiaalId);
 
         task = new GetEigenschappenTask(filiaalId);
         executeTask();
@@ -141,8 +159,9 @@ public class SettingsActivity extends AppCompatActivity{
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 //JWT token toevoegen aan http-get message
                 filiaalId = filiaalId-1;
-                connection.addRequestProperty("Authorization", "Bearer " + jwt.maakJWTMetLoginEnId(((GlobaleVariabelen) getApplication()).getLoggedInUser(), Integer.parseInt(((GlobaleVariabelen) getApplication()).getIdLijst()[filiaalId])));
-                ((GlobaleVariabelen) getApplication()).setHuidigFiliaalId(Integer.parseInt(((GlobaleVariabelen) getApplication()).getIdLijst()[filiaalId]));
+
+                connection.addRequestProperty("Authorization", "Bearer " + jwt.maakJWTMetLoginEnId(((GlobaleVariabelen) getApplication()).getLoggedInUser(), filiaalId));
+                ((GlobaleVariabelen) getApplication()).setHuidigFiliaalId(filiaalId);
                 connection.setRequestMethod("GET");
                 connection.setConnectTimeout(5000);
                 connection.setReadTimeout(5000);

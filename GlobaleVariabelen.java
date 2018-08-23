@@ -13,12 +13,13 @@ import be.retailsonar.be.retailsonar.objects.CustomEigenschapIngevuld;
 import be.retailsonar.be.retailsonar.objects.EigenschappenIngevuld;
 
 public class GlobaleVariabelen extends Application {
-    private String ipServer = "192.168.1.136";
+    private String ipServer = "192.168.0.163";
     private int id;
     private String loggedInUser;
     private String[] filiaalNamen;
     private String[] addresLijst;
     private String[] idLijst;
+    private int filiaalid;
     private List<CustomEigenschapIngevuld> customEigenschapIngevuldLijst;
     private List<EigenschappenIngevuld> eigenschappenIngevuldLijst;
     private boolean taakUitgevoerd = false;
@@ -36,6 +37,13 @@ public class GlobaleVariabelen extends Application {
 
     public boolean isTaakUitgevoerd() {
         return taakUitgevoerd;
+    }
+
+    public void setFiliaalid(int i){
+        this.filiaalid=i;
+    }
+    public int getFiliaalid(){
+        return this.filiaalid;
     }
 
     public void setTaakUitgevoerd(boolean taakUitgevoerd) {
@@ -63,6 +71,11 @@ public class GlobaleVariabelen extends Application {
     }
 
     public String[] getIdLijst() {
+        for(int i=0;i<idLijst.length;i++) {
+            System.out.println("id"+idLijst[i]);
+
+
+        }
         return idLijst;
     }
 
@@ -153,4 +166,5 @@ public class GlobaleVariabelen extends Application {
 
         return claims;
     }
+
 }
